@@ -42,6 +42,7 @@ ng generate module main-routing --flat --module=main
 ng generate component aa101-top --module=main
 
 ng generate component aa101-top/aa201g01 --module=main
+ng generate component aa101-top/aa202g01 --module=main
 
 
 ■自分向けの注意事項

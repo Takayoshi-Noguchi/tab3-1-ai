@@ -1,2 +1,12 @@
 <p>aa101-top works!</p>
-<router-outlet></router-outlet>
+
+<div class="tab-container">
+    <ng-container *ngFor="let tab of tabs">
+        <button (click)="changeTab(tab.screenUrl)" class="tab-button" [class.active]="currentScreenUrl === tab.screenUrl">
+            {{ tab.name }}</button>
+    </ng-container>
+</div>
+
+<div class="tab-content">
+    <router-outlet></router-outlet>
+</div>
