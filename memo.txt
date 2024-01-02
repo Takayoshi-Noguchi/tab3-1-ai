@@ -1,0 +1,33 @@
+■フォルダ階層
+app
+ |_shared
+ | |_guard
+ |   |_log.guard.ts
+ |_aa101-top
+ | |_common
+ | | |_az101-tab
+ | |   |_az101-tab.service.ts
+ | |   |_az101-tab.ts
+ | |_aa201g01
+ | | |_aa201g01.component.html
+ | | |_aa201g01.component.scss
+ | | |_aa201g01.component.ts
+ | |_aa202g01
+     ・・・
+ | |_aa101-top-routing.module.ts
+ | |_aa101-top.component.html
+ | |_aa101-top.component.scss
+ | |_aa101-top.component.ts
+ | |_aa101-top.module.ts
+
+ |_app-routing.module.ts
+ |_app.coponent.html
+ |_app.coponent.scss
+ |_app.coponent.ts
+ |_app.module.ts
+
+ |_main-routing.module.ts
+ |_main.coponent.html
+ |_main.coponent.scss
+ |_main.coponent.ts
+ |_main.module.ts
