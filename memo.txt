@@ -31,3 +31,14 @@ app
  |_main.coponent.scss
  |_main.coponent.ts
  |_main.module.ts
+
+
+■コマンド
+ng generate component main
+ その後、ディレクトリ移動 main → app
+ng generate module main
+ng generate module main-routing --flat --module=main
+
+ng generate component aa101-top --module=main
+
+ng generate component aa101-top/aa201g01 --module=main
