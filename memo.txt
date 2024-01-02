@@ -42,3 +42,10 @@ ng generate module main-routing --flat --module=main
 ng generate component aa101-top --module=main
 
 ng generate component aa101-top/aa201g01 --module=main
+
+
+■自分向けの注意事項
+・routing.module.ts には、RouterModule をexportすることを忘れないこと
+・<router-outlet>が存在するコンポーネントと同じ階層に、routing.module.tsが必要かもしれない
+・<router-outlet>で表示されてコンポーネントでさらに<router-outlet>を定義する場合、
+　パスの定義には children を定義する必要がありそう。
