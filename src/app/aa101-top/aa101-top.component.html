@@ -1,9 +1,18 @@
 <p>aa101-top works!</p>
 
+<div>
+    <button (click)="onClickRefer()">照会</button>
+    <button (click)="onClickClear()">クリア</button>
+</div>
+
+
 <div class="tab-container">
     <ng-container *ngFor="let tab of tabs">
-        <button (click)="changeTab(tab.screenUrl)" class="tab-button" [class.active]="currentScreenUrl === tab.screenUrl">
-            {{ tab.name }}</button>
+        <button (click)="changeTab(tab.screenUrl)"
+                class="tab-button"
+                [class.active]="currentScreenUrl === tab.screenUrl">
+            {{ tab.name }}
+        </button>
     </ng-container>
 </div>
 

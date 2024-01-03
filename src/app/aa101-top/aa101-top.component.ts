@@ -36,9 +36,15 @@ export class Aa101TopComponent {
     )
     // URLが変更された場合、タブを切り替える
     tabService.currentTab$.subscribe(currentTab => {
-        this.currentTab = currentTab;
-        this.currentScreenUrl = currentTab.screenUrl;
-        this.changeTab(currentTab.screenUrl);
+      this.currentTab = currentTab;
+      if (Object.keys(currentTab).length === 0) {
+        // クリアボタン押下時はタブ情報が存在しないので、固定でクリアする
+        this.currentScreenUrl = '';
+        return;
+      }
+      // タブ情報が存在する場合、タブ情報を表示する。
+      this.currentScreenUrl = currentTab.screenUrl;
+      this.changeTab(currentTab.screenUrl);
       }
     )
     
@@ -52,4 +58,18 @@ export class Aa101TopComponent {
     // ルーティング
     this.router.navigate([tab.screenUrl])
   }
+
+  // 照会ボタン押下時
+  onClickRefer() {
+    // タブが表示されている場合、タブをすべて削除し、タブを表示する。
+    this.tabService.clear();
+    this.tabService.addTab('aa201g01');
+  }
+
+  // クリアボタン押下時
+  onClickClear() {
+    this.tabService.clear();
+    this.router.navigate(['/'])
+  }
+
 }

@@ -32,8 +32,8 @@ export class Az101TabService {
   currentTab$ = this.currentTabSubject.asObservable();
   
   constructor(private router: Router) {
-    this.addTab('aa201g01');  // TODO 暫定で初期表示時に表示する
-    this.tabSubject.next(this.tabs);
+    // this.tabSubject.next(this.tabs);
+    this.clear();
   }
 
   /**
@@ -42,16 +42,17 @@ export class Az101TabService {
    * @param tabId 
    */
   addTab(tabId: string) {
-    // let tab = this.tabsOriginal.filter(data => data.screenUrl === tabId);
 
+    // 指定したタブの定義情報を取得
     let currentTab: Az101Tab = this.tabsOriginal[tabId];
+
     // タブが存在しない場合、タブ情報を追加し、通知する
     if (this.existTab(tabId) === false) {
       this.tabs.push(currentTab);
       this.tabSubject.next(this.tabs);
     }
+    // 現在のタブ情報を通知する
     this.currentTabSubject.next(currentTab);
-    console.log(this.tabs);
   }
 
   // 指定したタブがすでに表示されているか判定する。
@@ -67,6 +68,11 @@ export class Az101TabService {
     return this.tabsOriginal[tabId];
   }
 
+  clear() {
+    this.tabs = [];
+    this.tabSubject.next(this.tabs);
+    this.currentTabSubject.next({});
+  }
 }
 
 
