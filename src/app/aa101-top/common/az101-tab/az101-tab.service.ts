@@ -56,10 +56,26 @@ export class Az101TabService {
     return Az101TabConst.TAB_DEFINE[tabId];
   }
 
+  // タブ情報をクリアする
   clear() {
     this.tabs = [];
     this.tabSubject.next(this.tabs);
     this.currentTabSubject.next({});
+  }
+
+  // TOP画面で照会ボタン押下
+  openFirstTabs(tabIdArray: string[]) {
+    // タブ情報をクリア
+    this.tabs = [];
+    // 表示対象のタブ情報を登録
+    tabIdArray.forEach(tabId => {
+      let tab: Az101Tab = Az101TabConst.TAB_DEFINE[tabId];
+      this.tabs.push(tab);
+    })
+    // タブ情報を通知
+    this.tabSubject.next(this.tabs);
+    // タブID配列の最初のタブIDのタブ情報をカレントとして通知
+    this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
   }
 }
 

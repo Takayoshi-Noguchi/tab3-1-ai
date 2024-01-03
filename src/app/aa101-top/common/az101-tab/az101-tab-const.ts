@@ -13,4 +13,6 @@ export class Az101TabConst {
       name: '商品情報'
     },
   };
+
+  static readonly FIRST_TABS = ['aa201g01', 'aa202g01'];
 }

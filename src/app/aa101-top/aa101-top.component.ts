@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Az101Tab } from './common/az101-tab/az101-tab';
+import { Az101TabConst } from './common/az101-tab/az101-tab-const';
 import { Az101TabService } from './common/az101-tab/az101-tab.service';
 
 @Component({
@@ -11,16 +12,6 @@ import { Az101TabService } from './common/az101-tab/az101-tab.service';
 })
 export class Aa101TopComponent {
 
-  // tabs = [
-  //   {
-  //     screenUrl: 'aa201g01',
-  //     name: '契約情報照会'
-  //   },
-  //   {
-  //     screenUrl: 'aa202g01',
-  //     name: '商品情報'
-  //   },
-  // ];
   tabs: Az101Tab[] = [];
   
   currentScreenUrl = '';
@@ -45,11 +36,11 @@ export class Aa101TopComponent {
       // タブ情報が存在する場合、タブ情報を表示する。
       this.currentScreenUrl = currentTab.screenUrl;
       this.changeTab(currentTab.screenUrl);
-      }
-    )
+    })
     
   }
 
+  // タブ押下時
   changeTab(tabId: string) {
     window.console.log("タブが押された");
     let tab: Az101Tab = this.tabService.getTab(tabId);
@@ -64,6 +55,7 @@ export class Aa101TopComponent {
     // タブが表示されている場合、タブをすべて削除し、タブを表示する。
     this.tabService.clear();
     this.tabService.addTab('aa201g01');
+    this.tabService.openFirstTabs(Az101TabConst.FIRST_TABS);
   }
 
   // クリアボタン押下時
