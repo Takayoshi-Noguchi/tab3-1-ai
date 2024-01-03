@@ -45,8 +45,8 @@ ng generate component aa101-top/aa201g01 --module=main
 ng generate component aa101-top/aa202g01 --module=main
 
 ng generate service aa101-top/common/az101-tab/az101-tab
-
 ng generate interface aa101-top/common/az101-tab/az101-tab
+ng generate class aa101-top/common/az101-tab/az101-tab-define
 
 ■自分向けの注意事項
 ・routing.module.ts には、RouterModule をexportすることを忘れないこと
@@ -56,4 +56,10 @@ ng generate interface aa101-top/common/az101-tab/az101-tab
 
 ■タブ仕様
 ・各画面で業務リンクする場合、タブを追加し、追加されたタブを表示状態にする
-　追加対象画面がすでに表示されている場合、タブを追加せず、新たな情報を表示する
+　追加対象画面がすでに表示されている場合、タブを追加されない
+・タブをクリックすると、タブに応じた画面が表示される
+
+■トップ画面仕様
+・初期表示ではタブ情報は表示しない
+・照会ボタン押下時、指定したタブとその画面が表示される。それ以外のタブは表示されない。
+・クリアボタン押下時、タブはクリアされる

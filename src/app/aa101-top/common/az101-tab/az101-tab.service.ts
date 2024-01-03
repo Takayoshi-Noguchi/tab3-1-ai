@@ -4,25 +4,14 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Az101Tab } from './az101-tab';
+import { Az101TabConst } from './az101-tab-const';
 
 @Injectable({
   providedIn: 'root'
 })
 export class Az101TabService {
 
-  tabsOriginal: { [key: string]: Az101Tab } = {
-    'aa201g01' : {
-      tabId: 'aa201g01',
-      screenUrl: 'aa201g01',
-      name: '契約情報照会'
-    },
-    'aa202g01' : {
-      tabId: 'aa202g01',
-      screenUrl: 'aa202g01',
-      name: '商品情報'
-    },
-  };
-
+  // タブ配列
   tabs: Az101Tab[] = [];
 
   private tabSubject = new BehaviorSubject<any>(null);
@@ -32,7 +21,6 @@ export class Az101TabService {
   currentTab$ = this.currentTabSubject.asObservable();
   
   constructor(private router: Router) {
-    // this.tabSubject.next(this.tabs);
     this.clear();
   }
 
@@ -44,7 +32,7 @@ export class Az101TabService {
   addTab(tabId: string) {
 
     // 指定したタブの定義情報を取得
-    let currentTab: Az101Tab = this.tabsOriginal[tabId];
+    let currentTab: Az101Tab = Az101TabConst.TAB_DEFINE[tabId];
 
     // タブが存在しない場合、タブ情報を追加し、通知する
     if (this.existTab(tabId) === false) {
@@ -65,7 +53,7 @@ export class Az101TabService {
   }
   
   getTab(tabId: string): Az101Tab {
-    return this.tabsOriginal[tabId];
+    return Az101TabConst.TAB_DEFINE[tabId];
   }
 
   clear() {
