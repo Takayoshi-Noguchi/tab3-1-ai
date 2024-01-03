@@ -44,9 +44,16 @@ ng generate component aa101-top --module=main
 ng generate component aa101-top/aa201g01 --module=main
 ng generate component aa101-top/aa202g01 --module=main
 
+ng generate service aa101-top/common/az101-tab/az101-tab
+
+ng generate interface aa101-top/common/az101-tab/az101-tab
 
 ■自分向けの注意事項
 ・routing.module.ts には、RouterModule をexportすることを忘れないこと
 ・<router-outlet>が存在するコンポーネントと同じ階層に、routing.module.tsが必要かもしれない
 ・<router-outlet>で表示されてコンポーネントでさらに<router-outlet>を定義する場合、
 　パスの定義には children を定義する必要がありそう。
+
+■タブ仕様
+・各画面で業務リンクする場合、タブを追加し、追加されたタブを表示状態にする
+　追加対象画面がすでに表示されている場合、タブを追加せず、新たな情報を表示する
