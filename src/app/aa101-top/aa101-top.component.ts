@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Az101Tab } from './common/az101-tab/az101-tab';
@@ -17,9 +18,19 @@ export class Aa101TopComponent {
   currentScreenUrl = '';
   currentTab = '';  // TODO ここを型定義できないか？
 
+  // 検索フォーム
+  searchForm = this.fb.group({
+    referNo: [''],
+    contractName: [''],
+    contractNameKana: [''],
+  })
+
+
+
   constructor(
     private router: Router,
-    private tabService: Az101TabService) {
+    private tabService: Az101TabService,
+    private fb: FormBuilder) {
     
     // タブ情報が変更された場合、タブを再表示する
     tabService.tabs$.subscribe(tabs => 
@@ -60,6 +71,12 @@ export class Aa101TopComponent {
 
   // クリアボタン押下時
   onClickClear() {
+    // 検索条件をクリア
+    this.searchForm.patchValue({
+      referNo: '',
+      contractName: '',
+      contractNameKana: '',
+    })
     this.tabService.clear();
     this.router.navigate(['/'])
   }

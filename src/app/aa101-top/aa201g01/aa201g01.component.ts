@@ -9,9 +9,8 @@ import { Az101TabService } from '../common/az101-tab/az101-tab.service';
 })
 export class Aa201g01Component {
 
-  constructor(private tabService: Az101TabService) {
 
-  }
+  constructor(private tabService: Az101TabService) {}
 
   onClickAa202g01() {
     window.console.log('onClickAa202g01()');

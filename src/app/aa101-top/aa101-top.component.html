@@ -1,8 +1,22 @@
 <p>aa101-top works!</p>
 
 <div>
-    <button (click)="onClickRefer()">照会</button>
-    <button (click)="onClickClear()">クリア</button>
+    <form [formGroup]="searchForm" (ngSubmit)="onClickRefer()">
+        <label for="referNo">照会番号: </label>
+        <input type="text" formControlName="referNo">
+        <br>
+        <label for="contractName">契約者名: </label>
+        <input type="text" formControlName="contractName">
+        <br>
+        <label for="contractNameKana">契約者名カナ: </label>
+        <input type="text" formControlName="contractNameKana">
+        <br>
+        <button (click)="onClickRefer()">照会</button>
+        <button (click)="onClickClear()">クリア</button>
+    </form>
+</div>
+
+<div>
 </div>
 
 

@@ -58,6 +58,8 @@ ng generate class aa101-top/common/az101-tab/az101-tab-define
 ・<router-outlet>が存在するコンポーネントと同じ階層に、routing.module.tsが必要かもしれない
 ・<router-outlet>で表示されてコンポーネントでさらに<router-outlet>を定義する場合、
 　パスの定義には children を定義する必要がありそう。
+・ReactiveFormsModuleがaa101-top.module.tsに定義すると、aa101-top.component.htmlで使えた。
+　app.module.tsのみ定義しても使えなかった。なぜかはわからない。。。
 
 ■タブ仕様
 ✓各画面で業務リンクする場合、タブを追加し、追加されたタブを表示状態にする
@@ -71,6 +73,9 @@ ng generate class aa101-top/common/az101-tab/az101-tab-define
 ✓クリアボタン押下時、タブはクリアされる
 ✓アドレスバーに直接URLを入力（http://localhost:4200/aa201g01 など）しても、タブコンテンツに画面が表示されない
 ✓トップ画面のHTMLには、タブも含む
+✓検索条件のテキストを追加
+✓検索条件のテキストでEnter押下すると、照会処理が実行できる
+✓クリアボタン押下すると、検索条件のテキストの値がクリアされる
 
 ■コンテンツヘッダー仕様
 ・コンテンツヘッダーには以下の要素を保持する
