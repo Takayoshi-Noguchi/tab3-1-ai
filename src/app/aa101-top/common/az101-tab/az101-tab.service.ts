@@ -20,6 +20,9 @@ export class Az101TabService {
   private currentTabSubject = new BehaviorSubject<any>(null);
   currentTab$ = this.currentTabSubject.asObservable();
   
+  private tabInfoSubject = new BehaviorSubject<any>(null);
+  tabInfo$ = this.tabInfoSubject.asObservable();
+  
   constructor(private router: Router) {
     this.clear();
   }
@@ -37,10 +40,16 @@ export class Az101TabService {
     // タブが存在しない場合、タブ情報を追加し、通知する
     if (this.existTab(tabId) === false) {
       this.tabs.push(currentTab);
-      this.tabSubject.next(this.tabs);
+      // this.tabSubject.next(this.tabs);
     }
     // 現在のタブ情報を通知する
-    this.currentTabSubject.next(currentTab);
+    // this.currentTabSubject.next(currentTab);
+
+    this.tabInfoSubject.next({
+      tabs: this.tabs,
+      currentTab: currentTab
+    })
+
   }
 
   // 指定したタブがすでに表示されているか判定する。
@@ -59,8 +68,13 @@ export class Az101TabService {
   // タブ情報をクリアする
   clear() {
     this.tabs = [];
-    this.tabSubject.next(this.tabs);
-    this.currentTabSubject.next({});
+    // this.tabSubject.next(this.tabs);
+    // this.currentTabSubject.next({});
+    this.tabInfoSubject.next({
+      tabs: this.tabs,
+      currentTab: {}
+    })
+
   }
 
   // TOP画面で照会ボタン押下
@@ -72,10 +86,16 @@ export class Az101TabService {
       let tab: Az101Tab = Az101TabConst.TAB_DEFINE[tabId];
       this.tabs.push(tab);
     })
-    // タブ情報を通知
-    this.tabSubject.next(this.tabs);
-    // タブID配列の最初のタブIDのタブ情報をカレントとして通知
-    this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
+    // // タブ情報を通知
+    // this.tabSubject.next(this.tabs);
+    // // タブID配列の最初のタブIDのタブ情報をカレントとして通知
+    // this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
+
+    this.tabInfoSubject.next({
+      tabs: this.tabs,
+      currentTab: Az101TabConst.TAB_DEFINE[tabIdArray[0]]
+    })
+
   }
 }
 

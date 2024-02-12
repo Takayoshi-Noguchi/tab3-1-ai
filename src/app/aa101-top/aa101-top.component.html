@@ -16,13 +16,9 @@
     </form>
 </div>
 
-<div>
-</div>
-
-
 <div class="tab-container">
     <ng-container *ngFor="let tab of tabs">
-        <button (click)="changeTab(tab.screenUrl)"
+        <button (click)="onClickTab(tab.screenUrl)"
                 class="tab-button"
                 [class.active]="currentScreenUrl === tab.screenUrl">
             {{ tab.name }}
