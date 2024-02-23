@@ -13,12 +13,14 @@ export class Az101TabService {
 
   // タブ配列
   tabs: Az101Tab[] = [];
+  // 選択されたタブID
+  selectedTabId: string = '';
 
   private tabSubject = new BehaviorSubject<any>(null);
   tabs$ = this.tabSubject.asObservable();
 
-  private currentTabSubject = new BehaviorSubject<Az101Tab>(az101TabBlank);
-  currentTab$ = this.currentTabSubject.asObservable();
+  // private currentTabSubject = new BehaviorSubject<Az101Tab>(az101TabBlank);
+  // currentTab$ = this.currentTabSubject.asObservable();
   
   constructor(private router: Router) {
     this.clear();
@@ -37,10 +39,12 @@ export class Az101TabService {
     // タブが存在しない場合、タブ情報を追加し、通知する
     if (this.existTab(tabId) === false) {
       this.tabs.push(currentTab);
-      this.tabSubject.next(this.tabs);
     }
+    this.selectedTabId = tabId;
+    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
+    this.notify();
     // 現在のタブ情報を通知する
-    this.currentTabSubject.next(currentTab);
+    // this.currentTabSubject.next(currentTab);
   }
 
   // 指定したタブがすでに表示されているか判定する。
@@ -59,12 +63,14 @@ export class Az101TabService {
   // タブ情報をクリアする
   clear() {
     this.tabs = [];
-    this.tabSubject.next(this.tabs);
-    this.currentTabSubject.next({
-      tabId: '',
-      screenUrl: '',
-      name: '',
-    });
+    this.selectedTabId = '';
+    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
+    this.notify();
+    // this.currentTabSubject.next({
+    //   tabId: '',
+    //   screenUrl: '',
+    //   name: '',
+    // });
   }
 
   // TOP画面で照会ボタン押下
@@ -76,10 +82,16 @@ export class Az101TabService {
       let tab: Az101Tab = Az101TabConst.TAB_DEFINE[tabId];
       this.tabs.push(tab);
     })
+    this.selectedTabId = tabIdArray[0];
     // タブ情報を通知
-    this.tabSubject.next(this.tabs);
+    this.notify();
+    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
     // タブID配列の最初のタブIDのタブ情報をカレントとして通知
-    this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
+    // this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
+  }
+
+  notify() {
+    this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
   }
 }
 

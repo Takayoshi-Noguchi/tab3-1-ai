@@ -22,9 +22,9 @@
 
 <div class="tab-container">
     <ng-container *ngFor="let tab of tabs">
-        <button (click)="onClickTab(tab.screenUrl)"
+        <button (click)="onClickTab(tab.tabId)"
                 class="tab-button"
-                [class.active]="currentScreenUrl === tab.screenUrl">
+                [class.active]="currentTabId === tab.tabId">
             {{ tab.name }}
         </button>
     </ng-container>

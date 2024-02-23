@@ -46,8 +46,21 @@ export class Aa201g01Component implements OnInit{
     private tabService: Az101TabService,
     private fb: FormBuilder,
     private cacheService: Az102CacheService) {
-      window.console.log('aa201g01 constructor()');
-      cacheService.registKeepFunc('aa201g01', this.keep);
-    }
+    
+    window.console.log('aa201g01 constructor()');
+    cacheService.registKeepFunc('aa201g01', this.keep);
+
+    // キャッシュ通知を受け取って保存する
+    cacheService.keepNotification$.subscribe(tabId => {
+      window.console.log('aa201g01 keepNotification受信');
+      if (tabId === 'aa201g01') {
+        this.keep();
+      }
+    });
+  }
+  
+  ngOnDestroy() {
+    window.console.log('aa201g01 ngOnDestroy()');
+  }
 
 }
