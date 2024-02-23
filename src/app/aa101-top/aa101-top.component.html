@@ -1,7 +1,7 @@
 <p>aa101-top works!</p>
 
 <div>
-    <form [formGroup]="searchForm" (ngSubmit)="onClickRefer()">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
         <label for="referNo">照会番号: </label>
         <input type="text" formControlName="referNo">
         <br>
@@ -22,7 +22,7 @@
 
 <div class="tab-container">
     <ng-container *ngFor="let tab of tabs">
-        <button (click)="changeTab(tab.screenUrl)"
+        <button (click)="onClickTab(tab.screenUrl)"
                 class="tab-button"
                 [class.active]="currentScreenUrl === tab.screenUrl">
             {{ tab.name }}

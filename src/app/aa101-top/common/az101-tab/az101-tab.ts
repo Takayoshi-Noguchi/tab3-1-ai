@@ -3,3 +3,9 @@ export interface Az101Tab {
   screenUrl: string;
   name: string;
 }
+
+export let az101TabBlank: Az101Tab = {
+  tabId: '',
+  screenUrl: '',
+  name: '',
+};

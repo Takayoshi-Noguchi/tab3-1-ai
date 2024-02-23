@@ -3,7 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Az101Tab } from './az101-tab';
+import { Az101Tab, az101TabBlank } from './az101-tab';
 import { Az101TabConst } from './az101-tab-const';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class Az101TabService {
   private tabSubject = new BehaviorSubject<any>(null);
   tabs$ = this.tabSubject.asObservable();
 
-  private currentTabSubject = new BehaviorSubject<any>(null);
+  private currentTabSubject = new BehaviorSubject<Az101Tab>(az101TabBlank);
   currentTab$ = this.currentTabSubject.asObservable();
   
   constructor(private router: Router) {
@@ -60,7 +60,11 @@ export class Az101TabService {
   clear() {
     this.tabs = [];
     this.tabSubject.next(this.tabs);
-    this.currentTabSubject.next({});
+    this.currentTabSubject.next({
+      tabId: '',
+      screenUrl: '',
+      name: '',
+    });
   }
 
   // TOP画面で照会ボタン押下

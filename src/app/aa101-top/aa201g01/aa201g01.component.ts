@@ -16,23 +16,38 @@ export class Aa201g01Component implements OnInit{
   })
 
   ngOnInit(): void {
-    let customerNo = this.cacheService.get('aa201g01');
-    console.log(customerNo);
-    if (customerNo) {
-      this.aa201g01Form.setValue({customerNo: customerNo})
+    // 画面情報の復元
+    let aa201g01FormValue = this.cacheService.get('aa201g01');
+    console.log(aa201g01FormValue);
+    if (aa201g01FormValue) {
+      this.aa201g01Form.patchValue(aa201g01FormValue)
     }
   }
 
   onClickAa202g01() {
     window.console.log('onClickAa202g01()');
     // 入力情報を保存
-    this.cacheService.save('aa201g01', this.aa201g01Form.get('customerNo')?.value);
+    // this.cacheService.save('aa201g01', this.aa201g01Form.get('customerNo')?.value);
+    // this.cacheService.save('aa201g01', this.aa201g01Form.value);
+    this.keep();
     this.tabService.addTab('aa202g01');
+  }
+
+  // 画面情報の保存　TOP画面から呼ばれる
+  keep() {
+    window.console.log('aa201g01 keep()');
+    // TODO 自身のコンポーネントがないはずがない
+    if (this) {
+      this.cacheService.save('aa201g01', this.aa201g01Form.value);
+    }
   }
 
   constructor(
     private tabService: Az101TabService,
     private fb: FormBuilder,
-    private cacheService: Az102CacheService) { }
+    private cacheService: Az102CacheService) {
+      window.console.log('aa201g01 constructor()');
+      cacheService.registKeepFunc('aa201g01', this.keep);
+    }
 
 }
