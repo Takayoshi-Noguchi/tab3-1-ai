@@ -8,7 +8,6 @@ import { Injectable } from '@angular/core';
 export class Az102CacheService {
 
   cache: any = {};
-  keepFunc: any = {};
 
   private keepNotificationSubject = new BehaviorSubject<any>(null);
   keepNotification$ = this.keepNotificationSubject.asObservable();
@@ -24,25 +23,13 @@ export class Az102CacheService {
     return this.cache[tabId];
   }
 
-  registKeepFunc(tabId: string, keepFunc: any) {
-    // window.console.log('Az102CacheService registKeepFunc()' + tabId + ' ' + keepFunc);
-    this.keepFunc[tabId] = keepFunc;
-  }
-
-  counter: number = 0;
   executeKeep(tabId: string) {
-    // let _keepFunc = this.keepFunc[tabId];
-    // if (_keepFunc) {
-    //   window.console.log('Az102CacheService executeKeep()' + tabId);
-    //   // _keepFunc.keep();
-    //   _keepFunc();
-    // }
+    window.console.log('Az102CacheService executeKeep() tabId=' + tabId);
     this.keepNotificationSubject.next(tabId);
   }
 
   clear() {
     this.cache = {};
-    this.keepFunc = {};
   }
 }
 

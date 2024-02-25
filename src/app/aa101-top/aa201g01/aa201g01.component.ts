@@ -1,3 +1,5 @@
+import { Subscription } from 'rxjs';
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 
@@ -26,9 +28,6 @@ export class Aa201g01Component implements OnInit{
 
   onClickAa202g01() {
     window.console.log('onClickAa202g01()');
-    // 入力情報を保存
-    // this.cacheService.save('aa201g01', this.aa201g01Form.get('customerNo')?.value);
-    // this.cacheService.save('aa201g01', this.aa201g01Form.value);
     this.keep();
     this.tabService.addTab('aa202g01');
   }
@@ -36,25 +35,26 @@ export class Aa201g01Component implements OnInit{
   // 画面情報の保存　TOP画面から呼ばれる
   keep() {
     window.console.log('aa201g01 keep()');
-    // TODO 自身のコンポーネントがないはずがない
-    if (this) {
-      this.cacheService.save('aa201g01', this.aa201g01Form.value);
-    }
+    this.cacheService.save('aa201g01', this.aa201g01Form.value);
   }
 
+  subscription: Subscription;
+  
   constructor(
     private tabService: Az101TabService,
     private fb: FormBuilder,
     private cacheService: Az102CacheService) {
     
     window.console.log('aa201g01 constructor()');
-    cacheService.registKeepFunc('aa201g01', this.keep);
 
     // キャッシュ通知を受け取って保存する
-    cacheService.keepNotification$.subscribe(tabId => {
-      window.console.log('aa201g01 keepNotification受信');
+    this.subscription = cacheService.keepNotification$.subscribe(tabId => {
+      window.console.log('aa201g01 keepNotification受信 tabId=' + tabId);
       if (tabId === 'aa201g01') {
         this.keep();
+        // 画面保存するときはタブ切り替えが発生するので、無条件に流れを切断する
+        this.subscription.unsubscribe();
+        window.console.log('aa201g01 subscriptionを切断');
       }
     });
   }

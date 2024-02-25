@@ -17,7 +17,9 @@ export class Aa101TopComponent {
   tabs: Az101Tab[] = [];
   
   currentTabId = '';
-  currentTab: Az101Tab = az101TabBlank;  // TODO ここを型定義できないか？
+  currentTab: Az101Tab = az101TabBlank;
+
+  isReferButtonClicked: boolean = false;
 
   // 検索フォーム
   searchForm = this.fb.group({
@@ -40,24 +42,19 @@ export class Aa101TopComponent {
         // TODO 選択されたタブIDを設定してから、tabsを設定する
       this.tabs = tabInfo.tabs;
       this.currentTabId = tabInfo.tabId;
+      // 初期表示・クリアボタン押下時はタブが存在しないため、何も処理しない
       if (this.tabs.length > 0) {
-        this.changeTab(tabInfo.tabId);
+        if (this.isReferButtonClicked) {
+          // 照会ボタン押下時の処理　単純に画面遷移のみ行う　画面保存処理は不要
+          this.isReferButtonClicked = false;
+          let tab = this.tabs[0];
+          this.router.navigate([tab.screenUrl])
+        } else {
+          // タブクリック処理
+          this.changeTab(tabInfo.tabId);
+        }
       }
     })
-    // // URLが変更された場合（業務リンクの場合）、タブを切り替える
-    // tabService.currentTab$.subscribe(currentTab => {
-    //   this.currentTab = currentTab;
-    //   // if (Object.keys(currentTab).length === 0) {
-    //   if (currentTab.tabId === '') {
-    //     // クリアボタン押下時はタブ情報が存在しないので、固定でクリアする
-    //     this.currentScreenUrl = '';
-    //     return;
-    //   }
-    //   // タブ情報が存在する場合、タブ情報を表示する。
-    //   this.currentScreenUrl = currentTab.screenUrl;
-    //   this.changeTab(currentTab.screenUrl);
-    // })
-    
   }
 
   // タブ押下時
@@ -70,7 +67,7 @@ export class Aa101TopComponent {
   changeTab(tabId: string) {
     let beforeTabId = this.currentTabId;
     let afterTabId = tabId;
-    // 表示中の画面保存 TODOここを表示中の画面ＩＤで実行したい（tobeのタブＩＤではない）
+    // 表示中の画面保存
     this.cacheService.executeKeep(beforeTabId);
 
     // 遷移先のタブを選択状態にする
@@ -90,10 +87,9 @@ export class Aa101TopComponent {
   // 照会ボタン押下時
   onClickRefer() {
     window.console.log("Aa101TopComponent onClickRefer() 照会ボタンが押された");
+    this.isReferButtonClicked = true;
     // タブが表示されている場合、タブをすべて削除し、タブを表示する。
     this.cacheService.clear();
-    // this.tabService.clear();
-    // this.tabService.addTab('aa201g01');
     this.tabService.openFirstTabs(Az101TabConst.FIRST_TABS);
   }
 

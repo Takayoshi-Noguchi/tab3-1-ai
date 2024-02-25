@@ -41,10 +41,8 @@ export class Az101TabService {
       this.tabs.push(currentTab);
     }
     this.selectedTabId = tabId;
-    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
+    // タブ変更を通知する
     this.notify();
-    // 現在のタブ情報を通知する
-    // this.currentTabSubject.next(currentTab);
   }
 
   // 指定したタブがすでに表示されているか判定する。
@@ -64,13 +62,7 @@ export class Az101TabService {
   clear() {
     this.tabs = [];
     this.selectedTabId = '';
-    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
     this.notify();
-    // this.currentTabSubject.next({
-    //   tabId: '',
-    //   screenUrl: '',
-    //   name: '',
-    // });
   }
 
   // TOP画面で照会ボタン押下
@@ -85,9 +77,6 @@ export class Az101TabService {
     this.selectedTabId = tabIdArray[0];
     // タブ情報を通知
     this.notify();
-    // this.tabSubject.next({ tabId: this.selectedTabId, tabs: this.tabs });
-    // タブID配列の最初のタブIDのタブ情報をカレントとして通知
-    // this.currentTabSubject.next(Az101TabConst.TAB_DEFINE[tabIdArray[0]]);
   }
 
   notify() {
